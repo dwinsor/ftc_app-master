@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.LightSensor;
@@ -21,6 +20,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *      motorLeft
  *      motorRight
  *
+ *  There are 6 sensors attached to the robot:
+ *      sensorColor
+ *      sensorTouch
+ *      sensorGyro
+ *      sensorLegoTouch
+ *      sensorLegoLight
+ *      sensorUltrasonic
  */
 public class HardwareDriveBot
 {
@@ -64,6 +70,7 @@ public class HardwareDriveBot
         // Save reference to Hardware map
         hwMap = ahwMap;
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Define and Initialize Motors
         motorLeft   = hwMap.dcMotor.get("motorLeft");
         motorRight  = hwMap.dcMotor.get("motorRight");
@@ -72,7 +79,6 @@ public class HardwareDriveBot
 
         // robot uses encoders on the drive motors:
         resetEncoders();
-
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Map and initialize the sensors:
@@ -91,7 +97,7 @@ public class HardwareDriveBot
     }
 
     /**
-     * resetEncoders - stops the robot and resets the encoder for the left and right motor
+     * resetEncoders - stops the robot and resets the encoders for the left and right motor
      *
      * @author Jochen Fischer
      * @version 1.0 - 10/4/2016
