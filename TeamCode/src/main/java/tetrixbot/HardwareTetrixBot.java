@@ -25,6 +25,13 @@ public class HardwareTetrixBot
     //--------------------------------------
     public DcMotor  motorShoulder   = null;
 
+    final static int DELTA_SHOULDER = 40;
+    final static int MIN_SHOULDER   = 0;
+    final static int MAX_SHOULDER   = 0;
+    final static int INIT_SHOULDER  = 0;
+    int posShoulder = INIT_SHOULDER;
+    final static double POWER_SHOULDER = 0.2;
+
     // hardware specific constants:
     public static final int ENC_ROTATION_40 = 1120;
     public static final int ENC_ROTATION_60 = 1680;     // 1120 * 60 / 40
@@ -37,10 +44,10 @@ public class HardwareTetrixBot
     //--------------------------------------
     Servo servoTorso;
 
-    final static double DELTA_TORSO = 0.002;
-    final static double MIN_TORSO   = 0.196;
-    final static double MAX_TORSO   = 0.604;
-    final static double INIT_TORSO  = 0.384;
+    final static double DELTA_TORSO = 0.004;
+    final static double MIN_TORSO   = 0.170;
+    final static double MAX_TORSO   = 0.562;
+    final static double INIT_TORSO  = 0.374;
     double posTorso = INIT_TORSO;
 
     Servo servoTilt;
@@ -61,6 +68,8 @@ public class HardwareTetrixBot
     //--------------------------------------
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
+
+    boolean robotIsInitialized = false;
 
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap) {

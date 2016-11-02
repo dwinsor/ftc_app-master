@@ -40,6 +40,8 @@ public class TetrixArm extends LinearOpMode {
     // keep track of the timing throughout the program:
     private ElapsedTime runtime = new ElapsedTime();
 
+    boolean startBbuttonPressed = false;
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -56,12 +58,44 @@ public class TetrixArm extends LinearOpMode {
             //------------------------------------------------------------------
             // reset shoulder and elbow endoders by pressing the Start button
             //------------------------------------------------------------------
-            // TODO: reset the shoulder and elbow encoders
+            if (gamepad1.start && !startBbuttonPressed) {
+                // start button state went from not pressed to pressed:
+                startBbuttonPressed = true;
+                robot.resetShoulderEncoder();
+                robot.posShoulder = 0;
+                robot.robotIsInitialized = true;
+            }
+            else {
+                startBbuttonPressed = false;
+            }
+
+
+
 
             //----------------------------------------
             // move shoulder up and down
             //----------------------------------------
-            // TODO: add code that moves the shoulder
+            int currentShoulderPosition =robot.motorShoulder.getCurrentPosition();
+
+            if(gamepad1.left_trigger > 0.5) {
+                // move shoulder down:
+                robot.posShoulder = currentShoulderPosition
+                        + robot.DELTA_SHOULDER;
+            }
+            if(gamepad1.left_bumper) {
+                // move shoulder up:
+                robot.posShoulder = currentShoulderPosition
+                        - robot.DELTA_SHOULDER;
+            }
+            if(gamepad1.y) {
+                robot.posShoulder = 0;
+                robot.posTorso = robot.INIT_TORSO;
+            }
+
+            robot.motorShoulder.setTargetPosition(robot.posShoulder);
+            robot.motorShoulder.setPower(robot.POWER_SHOULDER);
+            telemetry.addData("shoulder target", String.format("%d",
+                    robot.posShoulder));
 
             //----------------------------------------
             // move torso left and right:
