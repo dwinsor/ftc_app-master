@@ -1,21 +1,16 @@
 
 package tetrixbot;
 
-import android.util.Log;
-import android.util.StringBuilderPrinter;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.HardwareDriveBot;
-
 /**
  * TetrixArm - Robot with 6-axis arm
  *
- * The name "TetrixArm" refers to the instructor's robotic arm built from Tetrix part.
- * There is no difference in programming on either the Actobotics or Tetrix platforme.
+ * The name "TetrixArm" refers to the instructor's robotic arm built from Tetrix parts.
+ * There is no difference in programming on either the Actobotics or Tetrix platform.
  *
  * @author Jochen Fischer
  * @version 1.0, 10/31/2016
@@ -40,7 +35,7 @@ public class TetrixArm extends LinearOpMode {
     // keep track of the timing throughout the program:
     private ElapsedTime runtime = new ElapsedTime();
 
-    boolean startBbuttonPressed = false;
+    boolean startButtonPressed = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -56,21 +51,18 @@ public class TetrixArm extends LinearOpMode {
 
         while(opModeIsActive()) {
             //------------------------------------------------------------------
-            // reset shoulder and elbow endoders by pressing the Start button
+            // reset shoulder and elbow encoders by pressing the Start button
             //------------------------------------------------------------------
-            if (gamepad1.start && !startBbuttonPressed) {
+            if (gamepad1.start && !startButtonPressed) {
                 // start button state went from not pressed to pressed:
-                startBbuttonPressed = true;
+                startButtonPressed = true;
                 robot.resetShoulderEncoder();
                 robot.posShoulder = 0;
                 robot.robotIsInitialized = true;
             }
             else {
-                startBbuttonPressed = false;
+                startButtonPressed = false;
             }
-
-
-
 
             //----------------------------------------
             // move shoulder up and down
@@ -94,8 +86,7 @@ public class TetrixArm extends LinearOpMode {
 
             robot.motorShoulder.setTargetPosition(robot.posShoulder);
             robot.motorShoulder.setPower(robot.POWER_SHOULDER);
-            telemetry.addData("shoulder target", String.format("%d",
-                    robot.posShoulder));
+            telemetry.addData("shoulder target", String.format("%d", robot.posShoulder));
 
             //----------------------------------------
             // move torso left and right:
